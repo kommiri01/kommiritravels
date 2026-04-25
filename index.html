@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kommiri Travels | Spiritual Cabs & Tours</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        saffron: '#ea580c',
+                        saffronDark: '#c2410c',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Modal Animation */
+        .slide-up { animation: slideUp 0.3s ease-out forwards; }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Gallery Highlight specific styles to ensure smooth centering */
+        .gallery-container {
+            scroll-snap-type: x mandatory;
+            padding-left: calc(50vw - 10rem); /* Mobile centering */
+            padding-right: calc(50vw - 10rem);
+        }
+        @media (min-width: 640px) {
+            .gallery-container {
+                padding-left: calc(50vw - 15rem); /* Desktop centering */
+                padding-right: calc(50vw - 15rem);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased relative">
+    <div id="g_id_onload"
+         data-client_id="991261581412-i0o31bfn0vtdk08k6m0oq4dt2nbtp669.apps.googleusercontent.com"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+    </div>
+
+    <div id="welcomeOverlay" class="fixed inset-0 bg-[#0f172a] z-[9999] flex flex-col items-center justify-center text-center px-4 transition-opacity duration-500">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Welcome to Kommiri Travels</h1>
+        <p class="text-lg text-gray-300 mb-8">Please sign in securely with Google to access the portal.</p>
+        
+        <div class="mb-6 flex justify-center">
+            <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
+        </div>
+    </div>
+
+    <nav class="bg-white shadow-md fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center space-x-2">
+                    <img class="h-6 w-6 rounded-full object-cover ring-2 ring-orange-500/20" src="logo.jpg" alt="Kommiri Travels Logo">
+                    <span class="text-2xl font-bold text-saffron">Kommiri Travels</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-6 items-center text-sm lg:text-base">
+                    <a href="#home" class="text-gray-600 hover:text-saffron transition">Home</a>
+                    <a href="#drivers" class="text-gray-600 hover:text-saffron transition">Drivers</a>
+                    <a href="#gallery" class="text-gray-600 hover:text-saffron transition">Gallery</a>
+                    <a href="#fleet" class="text-gray-600 hover:text-saffron transition">Our Fleet</a>
+                    <a href="#packages" class="text-gray-600 hover:text-saffron transition">Packages</a>
+                    <a href="#about" class="text-gray-600 hover:text-saffron transition">About</a>
+                    <a href="tel:+916304869817" class="bg-saffron hover:bg-saffronDark text-white px-4 py-2 rounded-md font-medium transition shadow-sm">Call Now</a>
+                    <div class="border-l border-gray-200 pl-6 ml-2 flex items-center">
+                        <div class="g_id_signin auth-btn" data-type="standard" data-shape="pill" data-theme="outline" data-text="signin" data-size="medium"></div>
+                        <div id="user-profile-desktop" class="hidden flex items-center gap-3">
+                            <img id="user-pic-desktop" src="" alt="Profile" class="w-8 h-8 rounded-full border border-gray-300 shadow-sm">
+                            <span id="user-name-desktop" class="text-sm font-bold text-gray-800"></span>
+                            <button onclick="signOut()" class="text-xs text-red-500 hover:text-red-700 font-medium">Sign Out</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-saffron focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg text-center">
+                <a href="#home" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">Home</a>
+                <a href="#drivers" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">Drivers</a>
+                <a href="#gallery" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">Gallery</a>
+                <a href="#fleet" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">Our Fleet</a>
+                <a href="#packages" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">Packages</a>
+                <a href="#about" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">About Us</a>
+                <a href="tel:+916304869817" class="block w-full mt-2 bg-saffron text-white px-4 py-2 rounded-md font-medium">Call Now</a>
+                <div class="border-t border-gray-100 pt-4 pb-2 flex flex-col items-center justify-center">
+                    <div class="g_id_signin auth-btn" data-type="standard" data-shape="rectangular" data-theme="outline" data-text="signin_with" data-size="large"></div>
+                    <div id="user-profile-mobile" class="hidden flex flex-col items-center gap-2">
+                        <img id="user-pic-mobile" src="" alt="Profile" class="w-12 h-12 rounded-full border border-gray-300 shadow-sm">
+                        <span id="user-name-mobile" class="text-base font-bold text-gray-800"></span>
+                        <button onclick="signOut()" class="text-sm text-red-500 hover:text-red-700 font-medium mt-1 border border-red-100 bg-red-50 px-4 py-1 rounded-full">Sign Out</button>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative pt-24 pb-12 lg:pt-32 lg:pb-24 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="src1.jpg" alt="Temple Background" class="w-full h-full  opacity-500">
+            <div class="absolute inset-0 bg-gray-900 mix-blend-multiply opacity-70"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12">
+            <div class="w-full lg:w-1/2 text-center lg:text-left">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+                    Your Trusted Cabs for <span class="text-saffron">Spiritual Journeys</span>
+                </h1>
+                <p class="text-lg text-gray-200 mb-8">
+                    Premium outstation cabs and local Tirupati darshan packages. Safe, reliable, and comfortable travel across AP, Tamil Nadu, and Karnataka.
+                </p>
+            </div>
+
+            <div class="w-full lg:w-1/2 max-w-md bg-white rounded-xl shadow-2xl overflow-hidden mx-auto lg:mx-0">
+                <div class="bg-saffron px-6 py-4">
+                    <h2 class="text-xl font-bold text-white">Book Your Cab</h2>
+                </div>
+                <form id="bookingForm" class="p-6 space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Pickup Location</label>
+                        <select id="pickup" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-saffron focus:border-saffron outline-none">
+                            <option>Tirupati Railway Station</option>
+                            <option>Tirupati Airport</option>
+                            <option>renigunta Railway station</option>
+                            <option>tirumala</option>
+                            <option>tirupati</option>
+                            <option>other places</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Drop Location / Tour</label>
+                        <input type="text" id="drop" placeholder="e.g., Tirumala, Srikalahasti" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-saffron focus:border-saffron outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                            <input type="date" id="date" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-saffron focus:border-saffron outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Cab Type</label>
+                            <select id="cabType" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-saffron focus:border-saffron outline-none">
+                                <option value="Sedan (4 Seater)">Sedan (4 Seater)</option>
+                                <option value="SUV (6-7 Seater)">SUV (6-7 Seater)</option>
+                                <option value="Tempo Traveller">Tempo Traveller</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="button" id="bookBtn" class="w-full bg-[#25D366] hover:bg-green-600 text-white font-bold py-3 px-4 rounded-md transition mt-4 flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.031 21.002h-.005c-1.845 0-3.655-.496-5.244-1.435l-.376-.222-3.899 1.022 1.042-3.801-.244-.388c-1.031-1.638-1.575-3.535-1.575-5.475 0-5.698 4.636-10.334 10.334-10.334 2.76 0 5.355 1.075 7.307 3.027 1.952 1.952 3.028 4.547 3.028 7.307 0 5.698-4.635 10.334-10.334 10.334zm0-18.914c-4.73 0-8.583 3.854-8.583 8.583 0 1.513.394 2.992 1.144 4.3l.182.316-.63 2.302 2.355-.618.307.182c1.268.75 2.71 1.146 4.184 1.146h.004c4.73 0 8.582-3.854 8.582-8.583 0-2.288-.891-4.44-2.482-6.031-1.591-1.59-3.743-2.48-6.031-2.48zm4.71 11.758c-.258-.129-1.528-.755-1.765-.842-.236-.086-.408-.129-.58.129-.172.258-.667.842-.818 1.014-.15.172-.301.193-.559.064-1.127-.565-2.071-1.148-2.903-2.316-.215-.301-.023-.464.106-.593.115-.115.258-.301.387-.451.129-.15.172-.258.258-.43.086-.172.043-.323-.021-.451-.065-.129-.58-1.398-.795-1.914-.209-.504-.421-.436-.58-.444-.15-.008-.323-.008-.495-.008-.172 0-.452.064-.688.323-.236.258-.903.882-.903 2.15 0 1.268.924 2.494 1.053 2.666.129.172 1.817 2.774 4.402 3.892 1.637.708 2.29.626 3.122.52 1-.129 2.279-.93 2.602-1.828.323-.898.323-1.666.226-1.828-.097-.162-.355-.258-.613-.387z"/>
+                        </svg>
+                        Send Booking Details
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section id="drivers" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Meet Our Experienced Drivers</h2>
+                <p class="mt-4 text-gray-600">Travel safely with courteous professionals who know South India inside out.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 border border-gray-100 flex flex-col relative">
+                    <div class="absolute top-0 right-0 bg-saffron text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10 ">
+                        propiettor
+                    </div>
+                    <div class="h-64 overflow-hidden">
+                        <img src="nana1.png" alt="Driver" class="w-full h-full object-cover object-top hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-gray-900">kommiri venkatamuni</h3>
+                        <p class="text-saffron font-medium text-sm mb-3"> 20+ Years Experience</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">A specialist in navigating the Tirumala Ghat roads safely. Very punctual, friendly, and always willing to help elderly passengers during temple visits.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-medium text-gray-500 mt-auto border-t border-gray-200 pt-4">
+                            <span class="bg-gray-200 px-2 py-1 rounded">Telugu</span>
+                            <span class="bg-gray-200 px-2 py-1 rounded">Tamil</span>
+                            <span class="bg-gray-200 px-2 py-1 rounded">Managable indian languages</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 border border-gray-100 flex flex-col relative">
+                    <div class="absolute top-0 right-0 bg-saffron text-white text-xs font-bold px-3 py-1 rounded-bl-lg z-10">Outstation Expert</div>
+                    <div class="h-64 overflow-hidden">
+                        <img src="tharunk.jpg" alt="Driver" class="w-full h-full object-cover object-top hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-gray-900">Kommiri Tharun </h3>
+                        <p class="text-saffron font-medium text-sm mb-3">4+ Years Experience</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow">Highly experienced in long-route driving across Andhra Pradesh and Tamil Nadu. Knows all the best local food stops and hidden spiritual spots on the way.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-medium text-gray-500 mt-auto border-t border-gray-200 pt-4">
+                            <span class="bg-gray-200 px-2 py-1 rounded">Telugu</span>
+                            <span class="bg-gray-200 px-2 py-1 rounded">Hindi</span>
+                            <span class="bg-gray-200 px-2 py-1 rounded">English</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 border border-gray-100 flex flex-col">
+                    <div class="h-64 overflow-hidden">
+                        <img src="rohith1.jpg" alt="Driver" class="w-full h-full object-cover object-top hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-gray-900">Yamala Rohith</h3>
+                        <p class="text-saffron font-medium text-sm mb-3">3+ Years Experience</p>
+                        <p class="text-gray-600 text-sm mb-4 flex-grow"> specializing in large group tours and Tempo Travellers. A deeply calm driver ensuring a smooth, sleep-friendly journey for overnight travel.</p>
+                        <div class="flex flex-wrap gap-2 text-xs font-medium text-gray-500 mt-auto border-t border-gray-200 pt-4">
+                            <span class="bg-gray-200 px-2 py-1 rounded">Telugu</span>
+                            <span class="bg-gray-200 px-2 py-1 rounded">Kannada</span>
+                            <span class="bg-gray-200 px-2 py-1 rounded">Tamil</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-16 bg-gray-900 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
+            <h2 class="text-3xl font-bold text-white">Memories from the Journey</h2>
+            <p class="mt-2 text-gray-400">View photos and videos from our Milestones.</p>
+        </div>
+        
+        <div id="sliderContainer" class="flex overflow-x-auto gap-4 hide-scrollbar py-8 gallery-container items-center">
+            
+            <div class="gallery-item snap-center shrink-0 w-80 h-64 sm:w-[480px] sm:h-[340px] bg-gray-800 rounded-xl overflow-hidden shadow-2xl relative transition-all duration-500 transform opacity-50 scale-90">
+                <img src="srimang" alt="Family Trip" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent p-4">
+                    <p class="text-white font-bold text-lg"></p>
+                </div>
+            </div>
+
+            <div class="gallery-item snap-center shrink-0 w-80 h-64 sm:w-[480px] sm:h-[340px] bg-gray-800 rounded-xl overflow-hidden shadow-2xl relative transition-all duration-500 transform opacity-50 scale-90">
+                <img src="japali.jpeg" alt="Temple View" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent p-4">
+                    <p class="text-white font-bold text-lg"></p>
+                </div>
+            </div>
+
+            <div class="gallery-item snap-center shrink-0 w-80 h-64 sm:w-[480px] sm:h-[340px] bg-gray-800 rounded-xl overflow-hidden shadow-2xl relative transition-all duration-500 transform opacity-50 scale-90">
+                <img src="kapila.jpg" alt="On the road" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent p-4">
+                    <p class="text-white font-bold text-lg"></p>
+                </div>
+            </div>
+            
+          <a href="https://www.youtube.com/channel/UCS2Y83GD-fc7qqgNW5uj41g/live" target="_blank" rel="noopener noreferrer" class="gallery-item snap-center shrink-0 w-80 h-64 sm:w-[480px] sm:h-[340px] bg-gray-900 rounded-xl overflow-hidden shadow-2xl relative transition-all duration-500 transform opacity-50 scale-90 group block cursor-pointer border border-gray-800">
+                
+                <img src="ttd" alt="Watch SVBC Live" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition duration-300">
+                
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xl mb-2">
+                        <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                    <span class="text-white font-bold tracking-wide shadow-black drop-shadow-md">Watch on YouTube</span>
+                </div>
+                
+                <div class="absolute top-4 left-4 bg-red-600 rounded-full px-3 py-1 shadow-md flex items-center gap-2 z-10">
+                    <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                    <span class="text-white text-xs font-bold uppercase tracking-wider">SVBC Live</span>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <section id="fleet" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Choose Your Fleet</h2>
+                <p class="mt-4 text-gray-600">Tap a category below to see our available vehicles.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div onclick="openVehiclePage('sedan')" class="cursor-pointer bg-white rounded-xl shadow-md p-8 text-center hover:shadow-2xl transition transform hover:-translate-y-2 border-b-4 border-transparent hover:border-saffron">
+                    <div class="text-6xl mb-4">🚗</div>
+                    <h3 class="text-2xl font-bold text-gray-900">Sedan</h3>
+                    <p class="text-gray-500 mt-2 text-sm">4 Seater • Ideal for Couples</p>
+                    <span class="inline-block mt-4 text-saffron font-medium text-sm border border-saffron px-4 py-1 rounded-full">View Cars &rarr;</span>
+                </div>
+
+                <div onclick="openVehiclePage('suv')" class="cursor-pointer bg-white rounded-xl shadow-md p-8 text-center hover:shadow-2xl transition transform hover:-translate-y-2 relative border-b-4 border-transparent hover:border-saffron">
+                    <div class="absolute top-0 right-0 bg-saffron text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl z-10">Popular</div>
+                    <div class="text-6xl mb-4">🚙</div>
+                    <h3 class="text-2xl font-bold text-gray-900">SUV</h3>
+                    <p class="text-gray-500 mt-2 text-sm">6-7 Seater • Family Choice</p>
+                    <span class="inline-block mt-4 text-saffron font-medium text-sm border border-saffron px-4 py-1 rounded-full">View Cars &rarr;</span>
+                </div>
+
+                <div onclick="openVehiclePage('tempo')" class="cursor-pointer bg-white rounded-xl shadow-md p-8 text-center hover:shadow-2xl transition transform hover:-translate-y-2 border-b-4 border-transparent hover:border-saffron">
+                    <div class="text-6xl mb-4">🚐</div>
+                    <h3 class="text-2xl font-bold text-gray-900">Tempo Traveller</h3>
+                    <p class="text-gray-500 mt-2 text-sm">12-14 Seater • Group Tours</p>
+                    <span class="inline-block mt-4 text-saffron font-medium text-sm border border-saffron px-4 py-1 rounded-full">View Cars &rarr;</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="packages" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Spiritual Tour Packages</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gray-50 border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="h-40 bg-gray-300">
+                        <img src="src2.jpg" alt="Tirumala swamy Darshan" class="w-full h-full object-cover">
+                        
+        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-2">Local Tirupati & Tirumala</h3>
+                        <p class="text-gray-600 text-sm mb-4">Tirumala swamy Darshan, japali,papavinasanam,akasaganga,silathoranam,venugopalaswamy temple.</p>
+                         <p class="text-gray-600 text-sm mb-4">kapilatheertham,srinivasa mangapuram,tiruchanoor padhamavatiammavari temple,iskontemple,gangama temple.</p>
+                        <a href="#home" class="text-saffron font-medium hover:text-saffronDark" onclick="document.getElementById('drop').value='Local Tirupati & Tirumala'; document.getElementById('drop').focus();">Book Package &rarr;</a>
+                    </div>
+                </div>
+                <div class="bg-gray-50 border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="h-40 bg-gray-300">
+                        <img src="kala.jpg" alt="Andhra Pradesh" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-2">Andhra Pradesh Tours</h3>
+                        <p class="text-gray-600 text-sm mb-4"> Kanipakam, Srikalahasti,vontimitta,and others</p>
+                        <a href="#home" class="text-saffron font-medium hover:text-saffronDark" onclick="document.getElementById('drop').value='Andhra Pradesh Tour'; document.getElementById('drop').focus();">Book Package &rarr;</a>
+                    </div>
+                </div>
+                <div class="bg-gray-50 border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="h-40 bg-gray-300">
+                        <img src="arun" alt="Tamil Nadu" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-2">Tamil Nadu Temple Run</h3>
+                        <p class="text-gray-600 text-sm mb-4">Kanchipuram, Vellore Golden Temple, Arunachalam,mahabalipuram, Madurai, Rameswaram.</p>
+                        <a href="#home" class="text-saffron font-medium hover:text-saffronDark" onclick="document.getElementById('drop').value='Tamil Nadu Temple Run'; document.getElementById('drop').focus();">Book Package &rarr;</a>
+                    </div>
+                </div>
+                <div class="bg-gray-50 border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="h-40 bg-gray-300">
+                        <img src="kar" alt="Karnataka" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-lg mb-2">Karnataka Pilgrimage</h3>
+                        <p class="text-gray-600 text-sm mb-4">Nanjangud, Murudeshwar, Udupi, Dharmasthala, and Kukke Subramanya.</p>
+                        <a href="#home" class="text-saffron font-medium hover:text-saffronDark" onclick="document.getElementById('drop').value='Karnataka Pilgrimage'; document.getElementById('drop').focus();">Book Package &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12">
+            
+            <div class="w-full lg:w-1/2 h-80 lg:h-[400px] rounded-lg shadow-xl overflow-hidden relative bg-gray-200 border border-gray-200">
+                <iframe 
+                    src="https://maps.google.com/maps?q=Tirupati,%20Andhra%20Pradesh&t=&z=12&ie=UTF8&iwloc=&output=embed" 
+                    class="absolute top-0 left-0 w-full h-full border-0" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur px-4 py-2 rounded-md shadow-lg border border-gray-100 flex items-center gap-2 pointer-events-none">
+                    <span class="text-saffron text-lg">📍</span>
+                    <span class="text-gray-900 font-bold text-sm">Operating from Tirupati & Proddatur</span>
+                </div>
+            </div>
+            <div class="w-full lg:w-1/2">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">About Kommiri Travels</h2>
+                <h3 class="text-xl text-saffron font-semibold mb-6">Your Trusted Transport Partner</h3>
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    Founded with a dedication to safe, reliable, and comfortable transportation, <strong>Kommiri Travels</strong> is a proud family-operated business serving travelers across South India. With deep roots in the region, we understand that a spiritual journey or family vacation requires peace of mind from the moment you step out your door.
+                </p>
+                <div class="flex space-x-6 mt-6">
+                    <div class="bg-white p-4 rounded-lg border-l-4 border-saffron shadow-sm flex-1">
+                        <span class="block text-2xl font-bold text-gray-900">24/7</span>
+                        <span class="text-sm text-gray-600">Support & Service</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border-l-4 border-saffron shadow-sm flex-1">
+                        <span class="block text-2xl font-bold text-gray-900">100%</span>
+                        <span class="text-sm text-gray-600">Safe & Reliable</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8 text-center md:text-left">
+            <div>
+                <h3 class="text-white text-xl font-bold mb-4">Kommiri Travels</h3>
+                <p class="text-sm text-gray-400">Creating seamless, safe, and memorable spiritual journeys across South India.</p>
+            </div>
+            <div>
+                <h3 class="text-white text-xl font-bold mb-4">Contact Us</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li>📞 +91 9030074084</li>
+                    <li>✉️ kommirinaveenkumar1@gmail.com</li>
+                    <li>📍 Tirupati, Andhra Pradesh</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white text-xl font-bold mb-4">Business Hours</h3>
+                <p class="text-sm text-gray-400 mb-2">24/7 Cab Service Available.</p>
+                <p class="text-sm text-gray-400">Office Hours: 5:00 AM - 11:00 PM</p>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
+            <p>&copy; 2026 Kommiri Travels. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="vehiclePageModal" class="fixed inset-0 bg-gray-50 z-[10000] hidden flex-col overflow-y-auto">
+        <div class="bg-white shadow-md px-4 py-4 flex items-center sticky top-0 z-50">
+            <button onclick="closeVehiclePage()" class="text-saffron font-bold flex items-center gap-2 hover:bg-gray-100 px-3 py-1 rounded transition">
+                <span>&larr;</span> Back to Home
+            </button>
+            <h2 id="vpTitle" class="text-xl font-bold ml-auto mr-auto text-gray-900 pr-12">Available Vehicles</h2>
+        </div>
+        <div class="max-w-4xl mx-auto p-4 sm:p-6 w-full mt-4 pb-20" id="vpContent"></div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="audio16.mpeg" type="audio/mpeg">
+    </audio>
+
+    <button id="musicToggleBtn" class="fixed bottom-6 left-6 bg-white border border-gray-200 text-gray-800 px-4 py-3 rounded-full shadow-2xl hover:bg-gray-100 transition-all duration-300 z-50 flex items-center justify-center gap-2 font-medium">
+        <span id="musicIcon">🎵</span>
+        <span id="musicText">Play Music</span>
+    </button>
+
+    <a href="https://wa.me/919030074084?text=Hi%20Kommiri%20Travels,%20I%20would%20like%20to%20book%20a%20cab." target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:bg-green-600 hover:scale-110 transition-all duration-300 z-50 flex items-center justify-center group cursor-pointer">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.031 21.002h-.005c-1.845 0-3.655-.496-5.244-1.435l-.376-.222-3.899 1.022 1.042-3.801-.244-.388c-1.031-1.638-1.575-3.535-1.575-5.475 0-5.698 4.636-10.334 10.334-10.334 2.76 0 5.355 1.075 7.307 3.027 1.952 1.952 3.028 4.547 3.028 7.307 0 5.698-4.635 10.334-10.334 10.334zm0-18.914c-4.73 0-8.583 3.854-8.583 8.583 0 1.513.394 2.992 1.144 4.3l.182.316-.63 2.302 2.355-.618.307.182c1.268.75 2.71 1.146 4.184 1.146h.004c4.73 0 8.582-3.854 8.582-8.583 0-2.288-.891-4.44-2.482-6.031-1.591-1.59-3.743-2.48-6.031-2.48zm4.71 11.758c-.258-.129-1.528-.755-1.765-.842-.236-.086-.408-.129-.58.129-.172.258-.667.842-.818 1.014-.15.172-.301.193-.559.064-1.127-.565-2.071-1.148-2.903-2.316-.215-.301-.023-.464.106-.593.115-.115.258-.301.387-.451.129-.15.172-.258.258-.43.086-.172.043-.323-.021-.451-.065-.129-.58-1.398-.795-1.914-.209-.504-.421-.436-.58-.444-.15-.008-.323-.008-.495-.008-.172 0-.452.064-.688.323-.236.258-.903.882-.903 2.15 0 1.268.924 2.494 1.053 2.666.129.172 1.817 2.774 4.402 3.892 1.637.708 2.29.626 3.122.52 1-.129 2.279-.93 2.602-1.828.323-.898.323-1.666.226-1.828-.097-.162-.355-.258-.613-.387z"/>
+        </svg>
+    </a>
+
+    <script>
+        const vehicleData = {
+            sedan: `
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden slide-up">
+                    <div class="bg-gray-100 p-8 flex justify-center"><img src="dzire.jpeg" alt="Maruti Dzire" class="h-64 object-contain drop-shadow-xl"></div>
+                    <div class="p-8">
+                        <h3 class="text-3xl font-bold text-gray-900">Maruti Suzuki Dzire(2023)</h3>
+                        <p class="text-lg text-gray-600 mt-4 leading-relaxed">Our preferred sedan, offering exceptional comfort and fuel efficiency. It is the perfect choice for couples or small families making long temple runs. Features dual AC, plush comfort seats, and a smooth, quiet ride on the highway.</p>
+                        <div class="mt-6 p-4 bg-orange-50 rounded-lg border border-orange-100">
+                            <h4 class="font-bold text-saffronDark mb-2">Vehicle Specifications:</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-center gap-2"><span>❄️</span> Fully Air Conditioned</li>
+                                <li class="flex items-center gap-2"><span>👥</span> Seats up to 4 Passengers</li>
+                                <li class="flex items-center gap-2"><span>🧳</span> Fits 2 Medium Bags</li>
+                            </ul>
+                        </div>
+                        <button onclick="bookFromPage('Sedan (4 Seater)')" class="mt-8 w-full bg-saffron hover:bg-saffronDark text-white py-4 rounded-lg font-bold text-lg shadow-md transition transform hover:-translate-y-1">Select This Sedan & Book</button>
+                    </div>
+                </div>`,
+            suv: `
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden slide-up">
+                    <div class="bg-gray-100 p-8 flex justify-center"><img src="sumo.jpeg" alt="Tata Sumo" class="h-64 object-contain drop-shadow-xl"></div>
+                    <div class="p-8">
+                        <h3 class="text-3xl font-bold text-gray-900">Tata Sumo Gold(2015)</h3>
+                        <p class="text-lg text-gray-600 mt-4 leading-relaxed">A highly robust and spacious SUV, perfect for larger families or joint tours. Known for its incredible reliability and extra legroom, making it perfectly suited for climbing the hills to Tirumala and handling varying road conditions safely.</p>
+                        <div class="mt-6 p-4 bg-orange-50 rounded-lg border border-orange-100">
+                            <h4 class="font-bold text-saffronDark mb-2">Vehicle Specifications:</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-center gap-2"><span>👥</span> Seats 6 to 7 Passengers comfortably</li>
+                                <li class="flex items-center gap-2"><span>🧳</span> Fits up to 4 Bags</li>
+                            </ul>
+                        </div>
+                        <button onclick="bookFromPage('SUV (6-7 Seater)')" class="mt-8 w-full bg-saffron hover:bg-saffronDark text-white py-4 rounded-lg font-bold text-lg shadow-md transition transform hover:-translate-y-1">Select This SUV & Book</button>
+                    </div>
+                </div>`,
+            tempo: `
+                <div class="bg-white rounded-xl shadow-xl overflow-hidden slide-up">
+                    <div class="bg-gray-200 relative h-72"><img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80" alt="Tempo Traveller" class="w-full h-full object-cover"></div>
+                    <div class="p-8">
+                        <h3 class="text-3xl font-bold text-gray-900">Tempo Traveller</h3>
+                        <p class="text-lg text-gray-600 mt-4 leading-relaxed">The ultimate vehicle for large groups, extended families, and dedicated spiritual tours. Ensure your entire family travels together in joy. Equipped with comfortable pushback seats, a great sound system for devotional music, and plenty of space.</p>
+                        <div class="mt-6 p-4 bg-orange-50 rounded-lg border border-orange-100">
+                            <h4 class="font-bold text-saffronDark mb-2">Vehicle Specifications:</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-center gap-2"><span>❄️</span> Dual AC System</li>
+                                <li class="flex items-center gap-2"><span>👥</span> Seats 12 to 14 Passengers</li>
+                                <li class="flex items-center gap-2"><span>🧳</span> Dedicated Luggage Carrier</li>
+                            </ul>
+                        </div>
+                        <button onclick="bookFromPage('Tempo Traveller')" class="mt-8 w-full bg-saffron hover:bg-saffronDark text-white py-4 rounded-lg font-bold text-lg shadow-md transition transform hover:-translate-y-1">Select This Tempo & Book</button>
+                    </div>
+                </div>`
+        };
+
+        function openVehiclePage(type) {
+            const modal = document.getElementById('vehiclePageModal');
+            document.getElementById('vpTitle').textContent = type === 'sedan' ? "Available Sedans" : type === 'suv' ? "Available SUVs" : "Available Tempos";
+            document.getElementById('vpContent').innerHTML = vehicleData[type];
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVehiclePage() {
+            const modal = document.getElementById('vehiclePageModal');
+            modal.classList.add('hidden'); modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function bookFromPage(cabTypeString) {
+            closeVehiclePage();
+            document.getElementById('cabType').value = cabTypeString;
+            document.getElementById('pickup').scrollIntoView({behavior: 'smooth', block: 'center'});
+            const formBox = document.getElementById('bookingForm').parentElement;
+            formBox.classList.add('ring-4', 'ring-saffron');
+            setTimeout(() => formBox.classList.remove('ring-4', 'ring-saffron'), 1500);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+            mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); }); });
+
+            // WhatsApp Booking
+            document.getElementById('bookBtn').addEventListener('click', () => {
+                const pickup = document.getElementById('pickup').value;
+                const drop = document.getElementById('drop').value.trim();
+                const date = document.getElementById('date').value;
+                const cabType = document.getElementById('cabType').value;
+                if (!drop) { alert("Please enter a drop location."); document.getElementById('drop').focus(); return; }
+                if (!date) { alert("Please select a date."); document.getElementById('date').focus(); return; }
+                window.open(`https://wa.me/919030074084?text=Hello Kommiri Travels, I would like to book a cab.%0A%0A*Booking Details:*%0A📍 *Pickup:* ${pickup}%0A🚩 *Drop:* ${drop}%0A📅 *Date:* ${date}%0A🚕 *Cab Type:* ${cabType}`, '_blank');
+            });
+
+            // Welcome Overlay & Audio
+            const audio = document.getElementById('bgMusic');
+            const welcomeOverlay = document.getElementById('welcomeOverlay');
+           
+            const musicToggleBtn = document.getElementById('musicToggleBtn');
+            const musicIcon = document.getElementById('musicIcon');
+            const musicText = document.getElementById('musicText');
+            audio.addEventListener('play', () => { musicIcon.textContent = "⏸️"; musicText.textContent = "Pause Music"; });
+            audio.addEventListener('pause', () => { musicIcon.textContent = "🎵"; musicText.textContent = "Play Music"; });
+            musicToggleBtn.addEventListener('click', () => { audio.paused ? audio.play() : audio.pause(); });
+
+            // ==========================================
+            // NEW: Highlight Frame Auto-Sliding Logic
+            // ==========================================
+            const slider = document.getElementById('sliderContainer');
+            const items = document.querySelectorAll('.gallery-item');
+            let currentIndex = 0;
+            let slideInterval;
+
+            // 1. Setup Intersection Observer to detect which item is in the center
+            const observerOptions = { root: slider, rootMargin: '0px', threshold: 0.6 };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Highlight the item in the center
+                        entry.target.classList.remove('opacity-50', 'scale-90');
+                        entry.target.classList.add('opacity-100', 'scale-100');
+                        currentIndex = Array.from(items).indexOf(entry.target);
+                    } else {
+                        // Dim the items on the sides
+                        entry.target.classList.add('opacity-50', 'scale-90');
+                        entry.target.classList.remove('opacity-100', 'scale-100');
+                    }
+                });
+            }, observerOptions);
+
+            items.forEach(item => observer.observe(item));
+
+            // 2. Auto-slide logic
+            const slideToNext = () => {
+                currentIndex++;
+                if (currentIndex >= items.length) { currentIndex = 0; }
+                const targetItem = items[currentIndex];
+                
+                // Calculate exact scroll position to center the target item
+                const scrollPos = targetItem.offsetLeft - (slider.clientWidth / 2) + (targetItem.clientWidth / 2);
+                slider.scrollTo({ left: scrollPos, behavior: 'smooth' });
+            };
+
+            const startSlide = () => { slideInterval = setInterval(slideToNext, 3000); };
+            const stopSlide = () => clearInterval(slideInterval);
+
+            // Start auto-sliding, but pause on hover or touch
+            startSlide();
+            slider.addEventListener('mouseenter', stopSlide);
+            slider.addEventListener('mouseleave', startSlide);
+            slider.addEventListener('touchstart', stopSlide, {passive: true});
+            slider.addEventListener('touchend', startSlide);
+        });
+        // ==========================================
+        // NEW: Google Authentication Logic
+        // ==========================================
+        
+        // Helper to decode the secure Google token
+        // Triggered automatically when Google Login is successful
+       // ==========================================
+        // NEW: Google Authentication Logic
+        // ==========================================
+        
+        // Helper to decode the secure Google token
+        function decodeJwtResponse(token) {
+            let base64Url = token.split('.')[1];
+            let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+
+        // Triggered automatically when Google Login is successful
+        // Triggered automatically when Google Login is successful
+        window.handleCredentialResponse = function(response) {
+            const payload = decodeJwtResponse(response.credential);
+            
+            // Show custom profiles in navbars
+            document.getElementById("user-profile-desktop").classList.remove("hidden");
+            document.getElementById("user-profile-mobile").classList.remove("hidden");
+            
+            // Inject user data into Desktop Nav
+            document.getElementById("user-pic-desktop").src = payload.picture;
+            document.getElementById("user-name-desktop").textContent = payload.given_name;
+            
+            // Inject user data into Mobile Nav
+            document.getElementById("user-pic-mobile").src = payload.picture;
+            document.getElementById("user-name-mobile").textContent = "Hi, " + payload.given_name;
+            
+            // UNLOCK THE WEBSITE: Dismiss Welcome Screen & Start Music
+            const welcomeOverlay = document.getElementById('welcomeOverlay');
+            if (welcomeOverlay) {
+                welcomeOverlay.classList.add('opacity-0');
+                setTimeout(() => {
+                    welcomeOverlay.style.display = 'none';
+                }, 500);
+            }
+
+            // Start the background music
+            const audio = document.getElementById('bgMusic');
+            if (audio) {
+                audio.play().catch(error => {
+                    console.log("Audio play failed:", error);
+                });
+            }
+        };
+        // ==========================================
+        // Sign Out Logic
+        // ==========================================
+        window.signOut = function() {
+            // 1. Tell Google not to automatically log them back in next time
+            google.accounts.id.disableAutoSelect();
+            
+            // 2. Refresh the page to instantly bring back the locked Welcome Screen
+            window.location.reload();
+        };
+    </script>
+</body>
+</html>
