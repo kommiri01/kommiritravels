@@ -74,10 +74,14 @@
                 <div class="hidden md:flex space-x-6 items-center text-sm lg:text-base">
                     <a href="#home" class="text-gray-600 hover:text-saffron transition">Home</a>
                     <a href="#drivers" class="text-gray-600 hover:text-saffron transition">Drivers</a>
+                    <a href="#reviews" class="text-gray-600 hover:text-saffron transition">Reviews</a>
                     <a href="#gallery" class="text-gray-600 hover:text-saffron transition">Gallery</a>
                     <a href="#fleet" class="text-gray-600 hover:text-saffron transition">Our Fleet</a>
                     <a href="#packages" class="text-gray-600 hover:text-saffron transition">Packages</a>
                     <a href="#about" class="text-gray-600 hover:text-saffron transition">About</a>
+                    <button onclick="openProfileModal()" class="bg-gray-900 hover:bg-black text-white font-bold py-2 px-5 rounded-full transition flex items-center gap-2 shadow-sm">
+                        <span>👤</span> Account
+                    </button>
                     <a href="tel:+916304869817" class="bg-saffron hover:bg-saffronDark text-white px-4 py-2 rounded-md font-medium transition shadow-sm">Call Now</a>
                     <div class="border-l border-gray-200 pl-6 ml-2 flex items-center">
                         <div class="g_id_signin auth-btn" data-type="standard" data-shape="pill" data-theme="outline" data-text="signin" data-size="medium"></div>
@@ -103,10 +107,14 @@
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg text-center">
                 <a href="#home" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">Home</a>
                 <a href="#drivers" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">Drivers</a>
+                <a href="#reviews" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">Reviews</a>
                 <a href="#gallery" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">Gallery</a>
                 <a href="#fleet" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">Our Fleet</a>
                 <a href="#packages" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">Packages</a>
                 <a href="#about" class="block px-3 py-2 text-gray-700 hover:text-saffron font-medium">About Us</a>
+               <button onclick="openProfileModal()" class="bg-gray-900 hover:bg-black text-white font-bold py-2 px-5 rounded-full transition flex items-center gap-2 shadow-sm">
+                        <span>👤</span> Account
+                    </button>
                 <a href="tel:+916304869817" class="block w-full mt-2 bg-saffron text-white px-4 py-2 rounded-md font-medium">Call Now</a>
                 <div class="border-t border-gray-100 pt-4 pb-2 flex flex-col items-center justify-center">
                     <div class="g_id_signin auth-btn" data-type="standard" data-shape="rectangular" data-theme="outline" data-text="signin_with" data-size="large"></div>
@@ -158,10 +166,14 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">Drop Location / Tour</label>
                         <input type="text" id="drop" placeholder="e.g., Tirumala, Srikalahasti" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-saffron focus:border-saffron outline-none">
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
                             <input type="date" id="date" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-saffron focus:border-saffron outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Time</label>
+                            <input type="time" id="time" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-saffron focus:border-saffron outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Cab Type</label>
@@ -173,11 +185,8 @@
                         </div>
                     </div>
 
-                    <button type="button" id="bookBtn" class="w-full bg-[#25D366] hover:bg-green-600 text-white font-bold py-3 px-4 rounded-md transition mt-4 flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.031 21.002h-.005c-1.845 0-3.655-.496-5.244-1.435l-.376-.222-3.899 1.022 1.042-3.801-.244-.388c-1.031-1.638-1.575-3.535-1.575-5.475 0-5.698 4.636-10.334 10.334-10.334 2.76 0 5.355 1.075 7.307 3.027 1.952 1.952 3.028 4.547 3.028 7.307 0 5.698-4.635 10.334-10.334 10.334zm0-18.914c-4.73 0-8.583 3.854-8.583 8.583 0 1.513.394 2.992 1.144 4.3l.182.316-.63 2.302 2.355-.618.307.182c1.268.75 2.71 1.146 4.184 1.146h.004c4.73 0 8.582-3.854 8.582-8.583 0-2.288-.891-4.44-2.482-6.031-1.591-1.59-3.743-2.48-6.031-2.48zm4.71 11.758c-.258-.129-1.528-.755-1.765-.842-.236-.086-.408-.129-.58.129-.172.258-.667.842-.818 1.014-.15.172-.301.193-.559.064-1.127-.565-2.071-1.148-2.903-2.316-.215-.301-.023-.464.106-.593.115-.115.258-.301.387-.451.129-.15.172-.258.258-.43.086-.172.043-.323-.021-.451-.065-.129-.58-1.398-.795-1.914-.209-.504-.421-.436-.58-.444-.15-.008-.323-.008-.495-.008-.172 0-.452.064-.688.323-.236.258-.903.882-.903 2.15 0 1.268.924 2.494 1.053 2.666.129.172 1.817 2.774 4.402 3.892 1.637.708 2.29.626 3.122.52 1-.129 2.279-.93 2.602-1.828.323-.898.323-1.666.226-1.828-.097-.162-.355-.258-.613-.387z"/>
-                        </svg>
-                        Send Booking Details
+                    <button type="button" id="bookBtn" class="w-full bg-saffron hover:bg-saffronDark text-white font-bold py-3 px-4 rounded-md transition mt-4 shadow-md flex items-center justify-center gap-2">
+                        Confirm Booking
                     </button>
                 </form>
             </div>
@@ -242,6 +251,23 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    <section id="reviews" class="py-16 bg-gray-50 border-t border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">What Our Travelers Say</h2>
+                <p class="mt-4 text-gray-600">Real experiences from families who traveled with Kommiri Travels.</p>
+            </div>
+            
+           <div id="reviewsGrid" class="grid md:grid-cols-3 gap-8">
+                </div>
+            
+            <div class="text-center mt-12">
+                <button onclick="openReviewModal()" class="inline-block bg-white border-2 border-saffron text-saffron hover:bg-saffron hover:text-white font-bold py-3 px-8 rounded-full transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
+                    Write a Review
+                </button>
             </div>
         </div>
     </section>
@@ -452,6 +478,54 @@
         </div>
         <div class="max-w-4xl mx-auto p-4 sm:p-6 w-full mt-4 pb-20" id="vpContent"></div>
     </div>
+    <div id="reviewModal" class="fixed inset-0 bg-gray-900/80 z-[10000] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all">
+            <div class="bg-saffron px-6 py-4 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-white">Share Your Experience</h2>
+                <button onclick="closeReviewModal()" class="text-white hover:text-gray-200 text-2xl font-bold">&times;</button>
+            </div>
+            <form id="reviewForm" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                    <input type="text" id="revName" required placeholder="e.g., Naveen K." class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-saffron focus:border-saffron outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Trip Type</label>
+                    <input type="text" id="revTrip" required placeholder="e.g., Tirupati Darshan, Airport Drop" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-saffron focus:border-saffron outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                    <div id="starRating" class="text-3xl flex gap-1 cursor-pointer select-none">
+                        <span class="star text-yellow-400 transition-colors" data-value="1">★</span>
+                        <span class="star text-yellow-400 transition-colors" data-value="2">★</span>
+                        <span class="star text-yellow-400 transition-colors" data-value="3">★</span>
+                        <span class="star text-yellow-400 transition-colors" data-value="4">★</span>
+                        <span class="star text-yellow-400 transition-colors" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" id="revRating" value="5">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Your Review</label>
+                    <textarea id="revText" required rows="4" placeholder="Tell us about your journey with Kommiri Travels..." class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-saffron focus:border-saffron outline-none resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-saffron hover:bg-saffronDark text-white font-bold py-3 rounded-md transition shadow-md">
+                    Post Review
+                </button>
+            </form>
+        </div>
+    </div>
+    <div id="historyModal" class="fixed inset-0 bg-gray-900/80 z-[10000] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden transform transition-all flex flex-col max-h-[80vh]">
+            <div class="bg-gray-900 px-6 py-4 flex justify-between items-center sticky top-0">
+                <h2 class="text-xl font-bold text-white flex items-center gap-2"><span>🧳</span> Your Booking History</h2>
+                <button onclick="closeHistoryModal()" class="text-gray-400 hover:text-white text-2xl font-bold transition">&times;</button>
+            </div>
+            
+            <div id="historyContainer" class="p-6 overflow-y-auto space-y-4 bg-gray-50 flex-grow">
+                <p class="text-center text-gray-500 py-8">Loading your trips...</p>
+            </div>
+        </div>
+    </div>
 
     <audio id="bgMusic" loop>
         <source src="audio16.mpeg" type="audio/mpeg">
@@ -468,7 +542,7 @@
         </svg>
     </a>
 
-    <script>
+   <script>
         const vehicleData = {
             sedan: `
                 <div class="bg-white rounded-xl shadow-xl overflow-hidden slide-up">
@@ -545,94 +619,9 @@
             setTimeout(() => formBox.classList.remove('ring-4', 'ring-saffron'), 1500);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Mobile Menu
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
-            mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); }); });
-
-            // WhatsApp Booking
-            document.getElementById('bookBtn').addEventListener('click', () => {
-                const pickup = document.getElementById('pickup').value;
-                const drop = document.getElementById('drop').value.trim();
-                const date = document.getElementById('date').value;
-                const cabType = document.getElementById('cabType').value;
-                if (!drop) { alert("Please enter a drop location."); document.getElementById('drop').focus(); return; }
-                if (!date) { alert("Please select a date."); document.getElementById('date').focus(); return; }
-                window.open(`https://wa.me/919030074084?text=Hello Kommiri Travels, I would like to book a cab.%0A%0A*Booking Details:*%0A📍 *Pickup:* ${pickup}%0A🚩 *Drop:* ${drop}%0A📅 *Date:* ${date}%0A🚕 *Cab Type:* ${cabType}`, '_blank');
-            });
-
-            // Welcome Overlay & Audio
-            const audio = document.getElementById('bgMusic');
-            const welcomeOverlay = document.getElementById('welcomeOverlay');
-           
-            const musicToggleBtn = document.getElementById('musicToggleBtn');
-            const musicIcon = document.getElementById('musicIcon');
-            const musicText = document.getElementById('musicText');
-            audio.addEventListener('play', () => { musicIcon.textContent = "⏸️"; musicText.textContent = "Pause Music"; });
-            audio.addEventListener('pause', () => { musicIcon.textContent = "🎵"; musicText.textContent = "Play Music"; });
-            musicToggleBtn.addEventListener('click', () => { audio.paused ? audio.play() : audio.pause(); });
-
-            // ==========================================
-            // NEW: Highlight Frame Auto-Sliding Logic
-            // ==========================================
-            const slider = document.getElementById('sliderContainer');
-            const items = document.querySelectorAll('.gallery-item');
-            let currentIndex = 0;
-            let slideInterval;
-
-            // 1. Setup Intersection Observer to detect which item is in the center
-            const observerOptions = { root: slider, rootMargin: '0px', threshold: 0.6 };
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Highlight the item in the center
-                        entry.target.classList.remove('opacity-50', 'scale-90');
-                        entry.target.classList.add('opacity-100', 'scale-100');
-                        currentIndex = Array.from(items).indexOf(entry.target);
-                    } else {
-                        // Dim the items on the sides
-                        entry.target.classList.add('opacity-50', 'scale-90');
-                        entry.target.classList.remove('opacity-100', 'scale-100');
-                    }
-                });
-            }, observerOptions);
-
-            items.forEach(item => observer.observe(item));
-
-            // 2. Auto-slide logic
-            const slideToNext = () => {
-                currentIndex++;
-                if (currentIndex >= items.length) { currentIndex = 0; }
-                const targetItem = items[currentIndex];
-                
-                // Calculate exact scroll position to center the target item
-                const scrollPos = targetItem.offsetLeft - (slider.clientWidth / 2) + (targetItem.clientWidth / 2);
-                slider.scrollTo({ left: scrollPos, behavior: 'smooth' });
-            };
-
-            const startSlide = () => { slideInterval = setInterval(slideToNext, 3000); };
-            const stopSlide = () => clearInterval(slideInterval);
-
-            // Start auto-sliding, but pause on hover or touch
-            startSlide();
-            slider.addEventListener('mouseenter', stopSlide);
-            slider.addEventListener('mouseleave', startSlide);
-            slider.addEventListener('touchstart', stopSlide, {passive: true});
-            slider.addEventListener('touchend', startSlide);
-        });
         // ==========================================
-        // NEW: Google Authentication Logic
+        // Google Authentication Logic
         // ==========================================
-        
-        // Helper to decode the secure Google token
-        // Triggered automatically when Google Login is successful
-       // ==========================================
-        // NEW: Google Authentication Logic
-        // ==========================================
-        
-        // Helper to decode the secure Google token
         function decodeJwtResponse(token) {
             let base64Url = token.split('.')[1];
             let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -642,50 +631,388 @@
             return JSON.parse(jsonPayload);
         }
 
-        // Triggered automatically when Google Login is successful
-        // Triggered automatically when Google Login is successful
-        window.handleCredentialResponse = function(response) {
-            const payload = decodeJwtResponse(response.credential);
-            
-            // Show custom profiles in navbars
+        function applyLoginState(payload) {
             document.getElementById("user-profile-desktop").classList.remove("hidden");
             document.getElementById("user-profile-mobile").classList.remove("hidden");
+            document.querySelectorAll('.auth-btn').forEach(btn => btn.style.display = 'none');
             
-            // Inject user data into Desktop Nav
             document.getElementById("user-pic-desktop").src = payload.picture;
             document.getElementById("user-name-desktop").textContent = payload.given_name;
-            
-            // Inject user data into Mobile Nav
             document.getElementById("user-pic-mobile").src = payload.picture;
             document.getElementById("user-name-mobile").textContent = "Hi, " + payload.given_name;
+
+            document.getElementById("profileName").value = payload.name;
+            document.getElementById("profileEmail").value = payload.email;
             
-            // UNLOCK THE WEBSITE: Dismiss Welcome Screen & Start Music
             const welcomeOverlay = document.getElementById('welcomeOverlay');
             if (welcomeOverlay) {
                 welcomeOverlay.classList.add('opacity-0');
-                setTimeout(() => {
-                    welcomeOverlay.style.display = 'none';
-                }, 500);
+                setTimeout(() => { welcomeOverlay.style.display = 'none'; }, 500);
             }
+        }
 
-            // Start the background music
-            const audio = document.getElementById('bgMusic');
-            if (audio) {
-                audio.play().catch(error => {
-                    console.log("Audio play failed:", error);
-                });
-            }
-        };
-        // ==========================================
-        // Sign Out Logic
-        // ==========================================
-        window.signOut = function() {
-            // 1. Tell Google not to automatically log them back in next time
-            google.accounts.id.disableAutoSelect();
+        window.handleCredentialResponse = function(response) {
+            const payload = decodeJwtResponse(response.credential);
             
-            // 2. Refresh the page to instantly bring back the locked Welcome Screen
+            // Save to browser memory so you stay logged in!
+            localStorage.setItem('kommiriUser', JSON.stringify(payload));
+            
+            applyLoginState(payload);
+
+            const audio = document.getElementById('bgMusic');
+            if (audio) { audio.play().catch(e => console.log("Audio play failed:", e)); }
+        };
+
+        window.signOut = function() {
+            google.accounts.id.disableAutoSelect();
+            localStorage.removeItem('kommiriUser'); // Wipe memory
             window.location.reload();
         };
+
+        // ==========================================
+        // Main Event Listeners
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Check if user is already logged in
+            const savedUser = localStorage.getItem('kommiriUser');
+            if (savedUser) {
+                applyLoginState(JSON.parse(savedUser));
+            }
+
+            // Mobile Menu
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(mobileBtn && mobileMenu) {
+                mobileBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+                mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.add('hidden'); }); });
+            }
+
+            // Booking System
+            const bookBtn = document.getElementById('bookBtn');
+            if(bookBtn) {
+                bookBtn.addEventListener('click', async () => {
+                    const originalText = bookBtn.innerHTML;
+                    bookBtn.innerHTML = 'Processing...';
+                    
+                    const pickup = document.getElementById('pickup').value;
+                    const drop = document.getElementById('drop').value.trim();
+                    const date = document.getElementById('date').value;
+                    const time = document.getElementById('time').value;
+                    const cabType = document.getElementById('cabType').value;
+                    
+                    if (!drop) { alert("Please enter a drop location."); document.getElementById('drop').focus(); bookBtn.innerHTML = originalText; return; }
+                    if (!date) { alert("Please select a date."); document.getElementById('date').focus(); bookBtn.innerHTML = originalText; return; }
+                    
+                    const bookingData = { pickup_location: pickup, drop_location: drop, travel_date: date, pickup_time: time, cab_type: cabType };
+
+                    try {
+                        const response = await fetch('http://127.0.0.1:8000/api/bookings/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(bookingData)
+                        });
+
+                        if (response.ok) {
+                            alert("Booking Confirmed! Your request has been sent to our dashboard safely.");
+                            document.getElementById('bookingForm').reset();
+                        } else {
+                            alert("Oops! Something went wrong with the booking.");
+                        }
+                    } catch (error) {
+                        alert("Could not connect to the server.");
+                    } finally {
+                        bookBtn.innerHTML = originalText;
+                    }
+                });
+            }
+
+            // Audio Logic
+            const audio = document.getElementById('bgMusic');
+            const musicToggleBtn = document.getElementById('musicToggleBtn');
+            const musicIcon = document.getElementById('musicIcon');
+            const musicText = document.getElementById('musicText');
+            if(audio && musicToggleBtn) {
+                audio.addEventListener('play', () => { musicIcon.textContent = "⏸️"; musicText.textContent = "Pause Music"; });
+                audio.addEventListener('pause', () => { musicIcon.textContent = "🎵"; musicText.textContent = "Play Music"; });
+                musicToggleBtn.addEventListener('click', () => { audio.paused ? audio.play() : audio.pause(); });
+            }
+
+            // Slider Logic
+            const slider = document.getElementById('sliderContainer');
+            if(slider) {
+                const items = document.querySelectorAll('.gallery-item');
+                let currentIndex = 0;
+                let slideInterval;
+
+                const observerOptions = { root: slider, rootMargin: '0px', threshold: 0.6 };
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.remove('opacity-50', 'scale-90');
+                            entry.target.classList.add('opacity-100', 'scale-100');
+                            currentIndex = Array.from(items).indexOf(entry.target);
+                        } else {
+                            entry.target.classList.add('opacity-50', 'scale-90');
+                            entry.target.classList.remove('opacity-100', 'scale-100');
+                        }
+                    });
+                }, observerOptions);
+
+                items.forEach(item => observer.observe(item));
+
+                const slideToNext = () => {
+                    currentIndex++;
+                    if (currentIndex >= items.length) { currentIndex = 0; }
+                    const targetItem = items[currentIndex];
+                    const scrollPos = targetItem.offsetLeft - (slider.clientWidth / 2) + (targetItem.clientWidth / 2);
+                    slider.scrollTo({ left: scrollPos, behavior: 'smooth' });
+                };
+
+                const startSlide = () => { slideInterval = setInterval(slideToNext, 3000); };
+                const stopSlide = () => clearInterval(slideInterval);
+
+                startSlide();
+                slider.addEventListener('mouseenter', stopSlide);
+                slider.addEventListener('mouseleave', startSlide);
+                slider.addEventListener('touchstart', stopSlide, {passive: true});
+                slider.addEventListener('touchend', startSlide);
+            }
+
+            // Load reviews on page load
+            loadReviews();
+        });
+
+        // ==========================================
+        // Reviews Logic
+        // ==========================================
+        function openReviewModal() {
+            const modal = document.getElementById('reviewModal');
+            if(modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); document.body.style.overflow = 'hidden'; }
+        }
+
+        function closeReviewModal() {
+            const modal = document.getElementById('reviewModal');
+            if(modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = 'auto'; }
+        }
+
+        const stars = document.querySelectorAll('#starRating .star');
+        const ratingInput = document.getElementById('revRating');
+        if(stars && ratingInput) {
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const clickedValue = parseInt(this.getAttribute('data-value'));
+                    ratingInput.value = clickedValue;
+                    stars.forEach(s => {
+                        if (parseInt(s.getAttribute('data-value')) <= clickedValue) {
+                            s.classList.remove('text-gray-300'); s.classList.add('text-yellow-400');
+                        } else {
+                            s.classList.remove('text-yellow-400'); s.classList.add('text-gray-300');
+                        }
+                    });
+                });
+            });
+        }
+
+        async function loadReviews() {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/reviews/');
+                if (!response.ok) return;
+                const reviews = await response.json();
+                const grid = document.getElementById('reviewsGrid');
+                if (grid) {
+                    grid.innerHTML = '';
+                    reviews.forEach(review => {
+                        const initial = review.username ? review.username.charAt(0).toUpperCase() : "K";
+                        const reviewerName = review.username || "Customer";
+                        const card = `
+                            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 relative mt-4">
+                                <div class="absolute -top-5 left-8 bg-saffron text-white w-10 h-10 flex items-center justify-center rounded-full text-2xl shadow-md">❝</div>
+                                <div class="flex mb-4 mt-2 text-xl tracking-widest">
+                                    <span class="text-yellow-400">${'★'.repeat(review.rating)}</span>
+                                    <span class="text-gray-300">${'★'.repeat(5 - review.rating)}</span>
+                                </div>
+                                <p class="text-gray-600 italic mb-6 leading-relaxed">"${review.review_text}"</p>
+                                <div class="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
+                                    <div class="w-12 h-12 rounded-full bg-saffron flex items-center justify-center text-white font-bold text-xl shadow-sm">${initial}</div>
+                                    <div><h4 class="font-bold text-gray-900">${reviewerName}</h4><p class="text-xs text-saffron font-medium">${review.trip_type}</p></div>
+                                </div>
+                            </div>`;
+                        grid.insertAdjacentHTML('beforeend', card);
+                    });
+                }
+            } catch (error) { console.error("Error loading reviews:", error); }
+        }
+
+        const reviewForm = document.getElementById('reviewForm');
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const reviewData = {
+                    trip_type: document.getElementById('revTrip').value,
+                    rating: document.getElementById('revRating').value,
+                    review_text: document.getElementById('revText').value
+                };
+                try {
+                    const response = await fetch('http://127.0.0.1:8000/api/reviews/', {
+                        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(reviewData)
+                    });
+                    if (response.ok) {
+                        this.reset(); closeReviewModal(); alert("Thank you! Your review has been sent.");
+                    } else { alert("Oops! Something went wrong saving the review."); }
+                } catch (error) { alert("Could not connect to the server."); }
+            });
+        }
+
+        // ==========================================
+        // Profile Dashboard Logic
+        // ==========================================
+        function openProfileModal() {
+            const modal = document.getElementById('profileModal');
+            if(modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); document.body.style.overflow = 'hidden'; fetchProfileHistory(); }
+        }
+
+        function closeProfileModal() {
+            const modal = document.getElementById('profileModal');
+            if(modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = 'auto'; }
+        }
+
+        async function saveProfileData() {
+            const btn = event.target;
+            const originalText = btn.innerText;
+            const name = document.getElementById('profileName').value;
+            const email = document.getElementById('profileEmail').value;
+            const phone = document.getElementById('profilePhone').value;
+            const address = document.getElementById('profileAddress').value;
+
+            if (!email) { alert("Email is required to save your profile!"); return; }
+            btn.innerText = "Saving...";
+            
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/profile/update/', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, email: email, phone: phone, address: address })
+                });
+
+                if (response.ok) {
+                    btn.innerText = "Preferences Saved!";
+                    btn.classList.replace('bg-gray-900', 'bg-green-500');
+                    btn.classList.replace('hover:bg-black', 'hover:bg-green-600');
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.classList.replace('bg-green-500', 'bg-gray-900');
+                        btn.classList.replace('hover:bg-green-600', 'hover:bg-black');
+                    }, 2000);
+                } else {
+                    alert("Failed to save profile."); btn.innerText = originalText;
+                }
+            } catch (error) { alert("Server connection error."); btn.innerText = originalText; }
+        }
+
+        async function fetchProfileHistory() {
+            const container = document.getElementById('profileHistoryContainer');
+            if(!container) return;
+            container.innerHTML = '<div class="flex justify-center items-center h-40"><p class="text-gray-500 animate-pulse">Loading your trips...</p></div>';
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/bookings/');
+                const bookings = await response.json();
+
+                if (bookings.length === 0) {
+                    container.innerHTML = `<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center mt-4"><div class="text-5xl mb-4">🚕</div><h3 class="text-xl font-bold text-gray-900">No trips yet!</h3><p class="text-gray-500 mt-2">Your spiritual journey awaits. Book a cab to get started.</p></div>`;
+                    return;
+                }
+
+                container.innerHTML = '';
+                bookings.forEach(booking => {
+                    let statusColor = booking.status === "Confirmed" ? "bg-green-100 text-green-800 border-green-200" : 
+                                      booking.status === "Completed" ? "bg-blue-100 text-blue-800 border-blue-200" : 
+                                      booking.status === "Cancelled" ? "bg-red-100 text-red-800 border-red-200" : "bg-yellow-100 text-yellow-800 border-yellow-200"; 
+                    let statusIcon = booking.status === "Confirmed" ? "✅" : booking.status === "Completed" ? "🏁" : booking.status === "Cancelled" ? "❌" : "⏳";
+
+                    const travelDate = new Date(booking.travel_date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    const pickupTimeHtml = booking.pickup_time ? `<p class="text-gray-500 text-sm mt-0.5">⏱️ ${booking.pickup_time}</p>` : '';
+
+                    const card = `
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition">
+                            <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4 gap-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-lg border border-gray-100">🛣️</div>
+                                    <div><span class="block text-sm font-bold text-gray-400 uppercase tracking-wider">Booking #${booking.id}</span><span class="block text-gray-900 font-medium text-sm">${travelDate}</span></div>
+                                </div>
+                                <div class="px-4 py-1.5 rounded-full text-xs font-bold border w-max flex items-center gap-1.5 ${statusColor}">${statusIcon} ${booking.status.toUpperCase()}</div>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4 grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2 border border-gray-100">
+                                <div><p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">Pickup</p><p class="text-gray-900 font-medium">${booking.pickup_location}</p>${pickupTimeHtml}</div>
+                                <div><p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">Drop / Tour</p><p class="text-gray-900 font-medium">${booking.drop_location}</p><p class="text-gray-500 text-sm mt-0.5">🚕 ${booking.cab_type}</p></div>
+                            </div>
+                        </div>`;
+                    container.insertAdjacentHTML('beforeend', card);
+                });
+            } catch (error) { container.innerHTML = '<div class="bg-red-50 text-red-600 rounded-xl p-6 text-center border border-red-100 mt-4">Could not load history. Is the Django server running?</div>'; }
+        }
     </script>
+<div id="profileModal" class="fixed inset-0 bg-gray-900/90 z-[10000] hidden items-center justify-center p-4 sm:p-6">
+        <div class="bg-gray-50 rounded-2xl shadow-2xl w-full max-w-5xl overflow-hidden transform transition-all flex flex-col md:flex-row max-h-[90vh] md:h-[800px]">
+            
+            <div class="w-full md:w-1/3 bg-white border-r border-gray-200 p-6 sm:p-8 overflow-y-auto">
+                <div class="flex justify-between items-center mb-8 md:hidden">
+                    <h2 class="text-2xl font-bold text-gray-900">My Account</h2>
+                    <button onclick="closeProfileModal()" class="text-gray-400 hover:text-gray-900 text-3xl font-bold">&times;</button>
+                </div>
+                
+                <div class="hidden md:block mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900">My Account</h2>
+                </div>
+                
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-16 h-16 bg-saffron text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-md">KN</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-lg">Kommiri Naveen Kumar</h3>
+                        <p class="text-sm text-saffron font-medium">Premium Traveler</p>
+                    </div>
+                </div>
+
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Full Name</label>
+                        <input type="text" id="profileName" value="full name" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-saffron focus:border-saffron outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Email Address</label>
+                        <input type="email" id="profileEmail" value="john@example.com" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-saffron focus:border-saffron outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Phone Number</label>
+                        <input type="tel" id="profilePhone" value="+91 1234567890" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-saffron focus:border-saffron outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Default Pickup Address</label>
+                        <textarea id="profileAddress" rows="3" placeholder="Enter your home or hotel address for 1-click booking..." class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-saffron focus:border-saffron outline-none transition resize-none"></textarea>
+                    </div>
+                    <button onclick="saveProfileData()" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-3 px-4 rounded-md transition mt-6 shadow-md">
+                        Save Preferences
+                    </button>
+                    <button onclick="closeProfileModal()" class="w-full text-red-500 font-bold py-3 px-4 rounded-md transition mt-2 hover:bg-red-50">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+
+            <div class="w-full md:w-2/3 bg-gray-50 p-6 sm:p-8 overflow-y-auto relative">
+                <button onclick="closeProfileModal()" class="hidden md:block absolute top-6 right-6 text-gray-400 hover:text-gray-900 text-3xl font-bold transition">&times;</button>
+                
+                <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2"><span>🧳</span> Your Journey History</h3>
+                
+                <div id="profileHistoryContainer" class="space-y-4 pb-10">
+                    <div class="flex justify-center items-center h-40">
+                        <p class="text-gray-500 animate-pulse">Loading your trips...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    
 </body>
 </html>
