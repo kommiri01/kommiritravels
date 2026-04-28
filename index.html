@@ -705,6 +705,49 @@ async function fetchProfileHistory() {
         container.innerHTML = '<p class="text-red-500">Could not load history.</p>';
     }
 }
+document.addEventListener('DOMContentLoaded', () => {
+    // ... existing login checks ...
+
+    // MUSIC FUNCTIONALITY
+    const audio = document.getElementById('bgMusic');
+    const musicToggleBtn = document.getElementById('musicToggleBtn');
+    const musicIcon = document.getElementById('musicIcon');
+    const musicText = document.getElementById('musicText');
+
+    if(audio && musicToggleBtn) {
+        // Update button text when music starts
+        audio.addEventListener('play', () => { 
+            musicIcon.textContent = "⏸️"; 
+            musicText.textContent = "Pause Music"; 
+        });
+
+        // Update button text when music pauses
+        audio.addEventListener('pause', () => { 
+            musicIcon.textContent = "🎵"; 
+            musicText.textContent = "Play Music"; 
+        });
+
+        // Toggle music on click
+        musicToggleBtn.addEventListener('click', () => { 
+            if (audio.paused) {
+                audio.play().catch(e => alert("Please interact with the page first to play music!"));
+            } else {
+                audio.pause();
+            }
+        });
+    }
+});
+function applyLoginState(payload) {
+    // ... (existing code to hide overlay) ...
+
+    // START THE SONG
+    const audio = document.getElementById('bgMusic');
+    if (audio) {
+        audio.play().catch(error => {
+            console.log("Autoplay prevented by browser. User must click 'Play' manually.");
+        });
+    }
+}
 </script>
 <div id="profileModal" class="fixed inset-0 bg-gray-900/90 z-[10000] hidden items-center justify-center p-4 sm:p-6">
         <div class="bg-gray-50 rounded-2xl shadow-2xl w-full max-w-5xl overflow-hidden transform transition-all flex flex-col md:flex-row max-h-[90vh] md:h-[800px]">
