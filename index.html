@@ -543,6 +543,51 @@
     </a>
 
    <script>
+    // 1. THIS DECODES THE SECURE TOKEN FROM GOOGLE
+function decodeJwtResponse(token) {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+}
+
+// 2. THIS HIDES THE OVERLAY AND SHOWS YOUR PROFILE
+function applyLoginState(payload) {
+    // Hide the Welcome Screen
+    const welcomeOverlay = document.getElementById('welcomeOverlay');
+    if (welcomeOverlay) {
+        welcomeOverlay.classList.add('opacity-0');
+        setTimeout(() => { welcomeOverlay.style.display = 'none'; }, 500);
+    }
+
+    // Show User Info in Header
+    document.getElementById("user-profile-desktop").classList.remove("hidden");
+    document.getElementById("user-profile-mobile").classList.remove("hidden");
+    document.querySelectorAll('.auth-btn').forEach(btn => btn.style.display = 'none');
+    
+    document.getElementById("user-pic-desktop").src = payload.picture;
+    document.getElementById("user-name-desktop").textContent = payload.given_name;
+    
+    // Auto-fill the Profile Modal for Kommiri Travels
+    if(document.getElementById("profileName")) document.getElementById("profileName").value = payload.name;
+    if(document.getElementById("profileEmail")) document.getElementById("profileEmail").value = payload.email;
+}
+
+// 3. THIS IS THE CALLBACK GOOGLE SEARCHES FOR
+window.handleCredentialResponse = function(response) {
+    const payload = decodeJwtResponse(response.credential);
+    
+    // Save to browser so the user stays logged in after refresh
+    localStorage.setItem('kommiriUser', JSON.stringify(payload));
+    
+    applyLoginState(payload);
+    
+    // Play the devotional music automatically once logged in
+    const audio = document.getElementById('bgMusic');
+    if (audio) { audio.play().catch(e => console.log("Audio blocked by browser")); }
+};
     const API_BASE_URL = 'https://kommiri01.pythonanywhere.com';
 
     function applyLoginState(payload) {
